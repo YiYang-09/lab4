@@ -1,0 +1,86 @@
+---
+title: "introduction to LinearRgression"
+author: "Yanjie Lyu, Yi Yang"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{introduction to LinearRgression}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+# Introduction
+
+This vignette provides an overview of how to use the LinearRegression for linear regression analysis. We will walk through key functions such as `linreg()`, `coef()`, `plot()`, `pred()`, `print()`, `resid()`, and `summary()`.
+
+## Loading the Package
+
+```{r setup}
+library(LinearRegression)
+```
+
+## Fitting a Linear Model
+
+```{r}
+data(iris)
+model <- linreg(Petal.Length~Species, data = iris)
+summary(model)
+
+```
+
+In this example, we fit a linear model to the iris data set, predicting Petal.Length based on Sepal.Length and Species. The summary() function provides a detailed report of the model’s coefficients and other statistics.
+
+## Extracting Coefficients
+
+After fitting a model, you can extract the regression coefficients using the `coef()` function.
+
+```{r}
+coefficients <- coef(model)
+coefficients
+
+```
+
+## Plotting Diagnostics
+
+The `plot()` function generates diagnostic plots to evaluate the model.
+
+```{r}
+plot(model)
+
+```
+
+## Making Predictions
+
+You can use the `pred()` function to generate predictions from the fitted model on new data or the original data set.
+
+```{r}
+predicted_values <- pred(model)
+
+```
+
+## Accessing Residuals
+
+The `resid()` function extracts the residuals from the fitted model.
+
+```{r}
+residuals <- resid(model)
+```
+
+## Printing Model Information
+
+The `print()` function provides a simple overview of the fitted model, showing important coefficients and statistics.
+
+```{r}
+print(model)
+
+```
+
+# Conclusion
+
+This vignette demonstrated how to use LinearRgression for basic linear regression analysis, from fitting the model to extracting coefficients and generating diagnostic plots.
