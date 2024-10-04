@@ -12,7 +12,7 @@
 \item{...}{Additional arguments}
 }
 \value{
-df print the sum
+print the sum
 }
 \description{
 Title

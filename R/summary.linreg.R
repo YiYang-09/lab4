@@ -3,7 +3,7 @@
 #' @param object A model object
 #' @param ... Additional arguments
 #'
-#' @return df print the sum
+#' @return  print the sum
 #' @export
 summary.linreg <- function(object, ...){
   Estimate = object$Regressions_coefficients[1, ] 
@@ -11,18 +11,10 @@ summary.linreg <- function(object, ...){
   t_value = object$t_value
   p_value = object$p_value
   
-  significance <- rep("", length(p_value))
-  for (i in 1:length(p_value)) {
-    if (p_value[i] < 0.001) {
-      significance[i] <- "***"
-    } else if (p_value[i] < 0.01) {
-      significance[i] <- "**"
-    } else if (p_value[i] < 0.05) {
-      significance[i] <- "*"
-    } else if (p_value[i] < 0.1) {
-      significance[i] <- "."
-    }
-  }
+  significance <- symnum(p_value, corr = FALSE, na = FALSE, cutpoints = c(0,.001,.01,.05,.1,1),
+                         symbols = c("***", "**", "*","."," ")
+    
+  )
   
   df <- data.frame(
     Estimate = Estimate,
@@ -35,7 +27,6 @@ summary.linreg <- function(object, ...){
 
   cat("\nCoefficients:\n")
   print(df)
-
   cat("Residual standard error:", object$Residual_standard_error, "on", object$The_degrees_of_freedom, "degrees of freedom\n")
 }
 

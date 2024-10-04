@@ -10,14 +10,18 @@ function(formula,data){
   X <- model.matrix(formula,data)
   vars <- all.vars(formula)
   y <- data[[vars[1]]]
+  
   beta_hat <- as.numeric(solve(t(X)%*%X)%*%t(X)%*%y)
   names(beta_hat) <- colnames(X)
   y_hat <- X%*%beta_hat
-  e_hat <- y - y_hat
+  e_hat <- y - y_hat   #residuals
   standard_residual <- sqrt(abs(e_hat))
+  
   df <- nrow(X)-ncol(X)
+  
   residual_variance <- as.numeric(t(e_hat)%*%e_hat)/df
   Residual_standard_error <- sqrt( residual_variance)
+  
   Var_hat <- residual_variance*solve(t(X)%*%X)
   standard_error <- sqrt(diag(Var_hat))
   t_value <- beta_hat/sqrt(diag(Var_hat))
