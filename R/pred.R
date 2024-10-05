@@ -1,4 +1,4 @@
-#' Title
+#' Fitted value
 #'
 #' @param object A model object
 #' @param ... Additional arguments 
