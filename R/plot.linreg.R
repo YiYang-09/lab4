@@ -1,4 +1,4 @@
-#' Title
+#' plots to evaluate the model.
 #'
 #' @param object A model object
 #' @param ... Additional arguments

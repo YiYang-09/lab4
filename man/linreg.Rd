@@ -2,7 +2,7 @@
 % Please edit documentation in R/linreg.R
 \name{linreg}
 \alias{linreg}
-\title{Title}
+\title{main function of linreg.}
 \usage{
 linreg(formula, data, method = c("ols", "qr"))
 }
@@ -17,5 +17,5 @@ linreg(formula, data, method = c("ols", "qr"))
 different methods of function
 }
 \description{
-Title
+main function of linreg.
 }
