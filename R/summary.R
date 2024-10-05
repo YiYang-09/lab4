@@ -1,4 +1,4 @@
-#' Title
+#' Detailed report of the model’s coefficients and other statistics
 #'
 #' @param object A model object
 #' @param ... Additional arguments 
