@@ -1,4 +1,4 @@
-#' Title
+#' Simple overview of the fitted model, showing important coefficients and statistics
 #'
 #' @param object A model object
 #' @param ... Additional arguments

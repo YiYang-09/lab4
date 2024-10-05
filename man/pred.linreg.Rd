@@ -2,7 +2,7 @@
 % Please edit documentation in R/pred.linreg.R
 \name{pred.linreg}
 \alias{pred.linreg}
-\title{Title}
+\title{Fitted values}
 \usage{
 \method{pred}{linreg}(object, ...)
 }
@@ -15,5 +15,5 @@
 object$The_fitted_values
 }
 \description{
-Title
+Fitted values
 }

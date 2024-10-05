@@ -1,8 +1,9 @@
-#' Title
+#' Detailed report of the model’s coefficients and other statistics
 #'
 #' @param object A model object
 #' @param ... Additional arguments
 #'
+#' @importFrom stats symnum
 #' @return  print the sum
 #' @export
 summary.linreg <- function(object, ...){

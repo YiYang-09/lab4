@@ -1,4 +1,4 @@
-#' Title
+#' Main function of linreg
 #'
 #' @param formula A symbolic description of the model to be fitted
 #' @param data A data frame containing the variables in the model

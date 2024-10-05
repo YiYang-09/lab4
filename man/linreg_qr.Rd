@@ -2,7 +2,7 @@
 % Please edit documentation in R/linreg_qr.R
 \name{linreg_qr}
 \alias{linreg_qr}
-\title{Title}
+\title{Linear regression with QR method}
 \usage{
 linreg_qr(formula, data)
 }
@@ -15,5 +15,5 @@ linreg_qr(formula, data)
 statistics
 }
 \description{
-Title
+Linear regression with QR method
 }

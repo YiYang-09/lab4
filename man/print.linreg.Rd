@@ -2,7 +2,7 @@
 % Please edit documentation in R/print.linreg.R
 \name{print.linreg}
 \alias{print.linreg}
-\title{Title}
+\title{Simple overview of the fitted model, showing important coefficients and statistics}
 \usage{
 \method{print}{linreg}(object, ...)
 }
@@ -15,5 +15,5 @@
 print the formula, data and coefficients
 }
 \description{
-Title
+Simple overview of the fitted model, showing important coefficients and statistics
 }

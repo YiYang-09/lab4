@@ -1,4 +1,4 @@
-#' Title
+#' Coefficients of the formula
 #'
 #' @param object A model object
 #' @param ... Additional arguments
