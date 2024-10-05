@@ -1,7 +1,7 @@
 Package: LinearRegression
 Encoding: UTF-8
 Type: Package
-Title: use LinearRgression for basic linear regression analysis, 
+Title: Use LinearRgression for basic linear regression analysis 
 Version: 1.0
 Date: 2024-09-29
 Authors@R: 
