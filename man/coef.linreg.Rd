@@ -2,7 +2,7 @@
 % Please edit documentation in R/coef.linreg.R
 \name{coef.linreg}
 \alias{coef.linreg}
-\title{coefficients of the formula.}
+\title{Coefficients of the formula}
 \usage{
 \method{coef}{linreg}(object, ...)
 }
@@ -15,5 +15,5 @@
 object$Regressions_coefficients
 }
 \description{
-coefficients of the formula.
+Coefficients of the formula
 }

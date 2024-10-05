@@ -1,4 +1,4 @@
-#' extracts the residuals from the fitted model.
+#' Extracts the residuals from the fitted model
 #'
 #' @param object A model object
 #' @param ... Additional arguments

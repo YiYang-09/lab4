@@ -2,7 +2,7 @@
 % Please edit documentation in R/linreg_ols.R
 \name{linreg_ols}
 \alias{linreg_ols}
-\title{linear regression with ols method.}
+\title{Linear regression with ols method}
 \usage{
 linreg_ols(formula, data)
 }
@@ -15,5 +15,5 @@ linreg_ols(formula, data)
 statistics
 }
 \description{
-linear regression with ols method.
+Linear regression with ols method
 }

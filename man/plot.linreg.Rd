@@ -2,7 +2,7 @@
 % Please edit documentation in R/plot.linreg.R
 \name{plot.linreg}
 \alias{plot.linreg}
-\title{plots to evaluate the model.}
+\title{Plots to evaluate the model}
 \usage{
 \method{plot}{linreg}(object, ...)
 }
@@ -15,5 +15,5 @@
 p1+p2
 }
 \description{
-plots to evaluate the model.
+Plots to evaluate the model
 }

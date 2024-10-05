@@ -2,7 +2,7 @@
 % Please edit documentation in R/resid.linreg.R
 \name{resid.linreg}
 \alias{resid.linreg}
-\title{extracts the residuals from the fitted model.}
+\title{Extracts the residuals from the fitted model}
 \usage{
 \method{resid}{linreg}(object, ...)
 }
@@ -15,5 +15,5 @@
 object$The_residuals
 }
 \description{
-extracts the residuals from the fitted model.
+Extracts the residuals from the fitted model
 }

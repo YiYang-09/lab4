@@ -1,4 +1,4 @@
-#' linear regression with QR method.
+#' Linear regression with QR method
 #'
 #' @param formula A symbolic description of the model to be fitted
 #' @param data A data frame containing the variables in the model 

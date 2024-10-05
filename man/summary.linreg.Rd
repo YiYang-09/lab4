@@ -2,7 +2,7 @@
 % Please edit documentation in R/summary.linreg.R
 \name{summary.linreg}
 \alias{summary.linreg}
-\title{a detailed report of the model’s coefficients and other statistics.}
+\title{Detailed report of the model’s coefficients and other statistics}
 \usage{
 \method{summary}{linreg}(object, ...)
 }
@@ -15,5 +15,5 @@
 print the sum
 }
 \description{
-a detailed report of the model’s coefficients and other statistics.
+Detailed report of the model’s coefficients and other statistics
 }
