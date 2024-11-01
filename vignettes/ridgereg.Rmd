@@ -1,0 +1,125 @@
+---
+title: "introduction to LinearRgression"
+author: "Yanjie Lyu, Yi Yang"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{introduction to LinearRgression}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+# Introduction
+
+This vignette demonstrates how to use the `ridgereg()` function along with `dplyr` and `caret` to build predictive models.
+
+```{r}
+library(LinearRegression)
+library(caret)
+library(dplyr)
+library(mlbench)
+library(leaps)
+library(elasticnet)
+
+```
+
+# Step 1: Load and Split the Data
+
+```{r}
+# Load BostonHousing dataset
+data("BostonHousing")
+
+# Set seed for reproducibility
+set.seed(123)
+trainIndex <- createDataPartition(BostonHousing$medv, p = 0.7, list = FALSE)
+trainData <- BostonHousing[trainIndex, ]
+testData <- BostonHousing[-trainIndex, ]
+
+```
+
+# Step 2: Fit a Linear Regression Model with Forward Selection
+
+```{r}
+# Train linear model with forward selection
+lm_model <- train(
+  medv ~ ., data = trainData,
+  method = "leapForward",
+  tuneGrid = data.frame(nvmax = 1:10),  # 限定 nvmax 的最大值
+  trControl = trainControl(method = "cv", number = 10)
+)
+
+
+# Get predictions and RMSE for the linear model
+lm_predictions <- predict(lm_model, newdata = testData)
+lm_rmse <- sqrt(mean((lm_predictions - testData$medv)^2))
+cat("Linear Model RMSE:", lm_rmse, "\n")
+
+
+```
+
+# Step 3: Fit a Ridge Regression Model Using ridgereg()
+
+```{r}
+# Fit ridge regression model with lambda = 1
+ridge_model <- ridgereg(medv ~ ., data = trainData, lambda = 1)
+
+# Get predictions and RMSE for ridge regression model
+ridge_predictions <- predict(ridge_model, newdata = testData)
+ridge_rmse <- sqrt(mean((ridge_predictions - testData$medv)^2))
+cat("Ridge Regression RMSE with lambda=1:", ridge_rmse, "\n")
+
+```
+# Step 4: Find the Best Lambda for Ridge Regression with Cross-Validation
+
+```{r}
+# Define a grid of lambda values for tuning
+lambda_values <- 10^seq(-4, 4, length = 100)
+
+
+# Train ridge regression with cross-validation to find best lambda
+ridge_tune <- train(
+  medv ~ ., data = trainData,
+  method = "ridge",
+  tuneGrid = expand.grid(.lambda = lambda_values),
+  trControl = trainControl(method = "cv", number = 5)  
+)
+
+best_lambda <- ridge_tune$bestTune$lambda
+cat("Best Lambda for Ridge Regression is:", best_lambda, "\n")
+
+
+```
+
+# Step 5: Refit Ridge Regression Model with Best Lambda
+
+```{r}
+# Refit ridge model with best lambda
+ridge_best_model <- ridgereg(medv ~ ., data = trainData, lambda = best_lambda)
+
+# Get predictions and RMSE for ridge regression model with best lambda
+ridge_best_predictions <- predict(ridge_best_model, newdata = testData)
+ridge_best_rmse <- sqrt(mean((ridge_best_predictions - testData$medv)^2))
+
+
+cat("Ridge Regression RMSE with best lambda:", ridge_best_rmse, "\n")
+
+```
+# Step 6: Evaluate Model Performance
+
+```{r}
+cat("Model Performance on Test Dataset:\n")
+cat("Linear Regression RMSE:", lm_rmse, "\n")
+cat("Ridge Regression RMSE with lambda=1:", ridge_rmse, "\n")
+cat("Ridge Regression RMSE with best lambda:", ridge_best_rmse, "\n")
+
+```
+
+# Conclusion
+
+In summary, Ridge Regression with optimized lambda provided the lowest RMSE, demonstrating the effectiveness of regularization in improving model performance by preventing overfitting and reducing prediction error on the test data. The improvement, while modest, shows that tuning the regularization parameter is beneficial for achieving optimal performance.

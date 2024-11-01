@@ -2,7 +2,7 @@
 % Please edit documentation in R/summary.R
 \name{summary}
 \alias{summary}
-\title{Title}
+\title{Detailed report of the model’s coefficients and other statistics}
 \usage{
 summary(object, ...)
 }
@@ -15,5 +15,5 @@ summary(object, ...)
 The result of the method applied to the class of the input object.
 }
 \description{
-Title
+Detailed report of the model’s coefficients and other statistics
 }

@@ -17,7 +17,14 @@ Description: from fitting the model to extracting coefficients and generating
     diagnostic plots.
 Imports:
   ggplot2,
-  patchwork
+  MASS,
+  patchwork,
+  nycflights13,
+  dplyr,
+  caret,
+  mlbench,
+  leaps,
+  elasticnet
 License: GPL-3
 RoxygenNote: 7.3.2.9000
 Suggests: 
