@@ -2,7 +2,7 @@
 % Please edit documentation in R/resid.R
 \name{resid}
 \alias{resid}
-\title{Title}
+\title{Extracts the residuals from the fitted model}
 \usage{
 resid(object, ...)
 }
@@ -15,5 +15,5 @@ resid(object, ...)
 The result of the method applied to the class of the input object.
 }
 \description{
-Title
+Extracts the residuals from the fitted model
 }

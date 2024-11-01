@@ -1,0 +1,152 @@
+---
+title: "introduction to LinearRgression"
+author: "Yanjie Lyu, Yi Yang"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{introduction to LinearRgression}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r}
+
+library(nycflights13)
+library(dplyr)
+library(caret)
+library(elasticnet)
+library(leaps)
+library(LinearRegression)
+```
+
+# Step 1: Load and Prepare the Data
+
+```{r}
+
+data("flights")
+data("weather")
+
+```
+
+```{r}
+
+flights <- flights %>%
+  select(dep_delay, origin, year, month, day, hour, carrier, distance)
+
+weather <- weather %>%
+  select(origin, year, month, day, hour, temp, dewp, humid, wind_speed, precip, visib)
+
+flight_data <- flights %>%
+  left_join(weather, by = c("origin", "year", "month", "day", "hour"))
+
+flight_data <- flight_data %>%
+  mutate(temp_precip = temp * precip,
+         wind_humid = wind_speed * humid)
+
+
+zero_var_cols <- sapply(flight_data, function(x) {
+  if (all(is.na(x))) {
+    TRUE
+  } else if (is.numeric(x)) {
+    var_x <- var(x, na.rm = TRUE)
+    if (is.na(var_x)) {
+      TRUE  
+    } else {
+      var_x == 0
+    }
+  } else {
+    length(unique(x)) == 1
+  }
+})
+zero_var_cols[is.na(zero_var_cols)] <- TRUE
+
+flight_data <- flight_data[, !zero_var_cols]
+
+flight_data <- na.omit(flight_data)
+
+
+
+```
+
+
+# Step 2: Split Data into Training, Validation, and Test Sets
+
+```{r}
+
+
+set.seed(0)
+
+sampleIndex <- createDataPartition(flight_data$dep_delay, p = 0.05, list = FALSE)
+sampled_data <- flight_data[sampleIndex, ]
+
+testIndex <- createDataPartition(sampled_data$dep_delay, p = 0.05, list = FALSE)
+test_data <- sampled_data[testIndex, ]
+remaining_data <- sampled_data[-testIndex, ]
+
+train_p <- 0.80 / 0.95  
+
+trainIndex <- createDataPartition(remaining_data$dep_delay, p = train_p, list = FALSE)
+train_data <- remaining_data[trainIndex, ]
+validation_data <- remaining_data[-trainIndex, ]
+
+cat("Proportions of Sampled Data:\n")
+cat("Training set size: ", nrow(train_data), "\n")
+cat("Validation set size: ", nrow(validation_data), "\n")
+cat("Test set size: ", nrow(test_data), "\n")
+
+
+
+```
+
+# Step 3: Train Ridge Regression Models with Different Lambda Values
+
+```{r}
+lambda_values <- 10^seq(-3, 3, length = 20)
+
+ridge_model <- train(
+  dep_delay ~ .,
+  data = train_data,
+  method = "ridge",
+  tuneGrid = expand.grid(lambda = lambda_values),  
+  trControl = trainControl(method = "cv", number = 5),
+  metric = "RMSE"
+)
+
+best_lambda <- ridge_model$bestTune$lambda  
+print(paste("Optimal Lambda for Ridge Regression:", best_lambda))
+
+```
+# Step 4: Evaluate Model
+
+```{r}
+
+validation_predictions <- predict(ridge_model, newdata = validation_data)
+validation_rmse <- sqrt(mean((validation_predictions - validation_data$dep_delay)^2))
+print(paste("Validation RMSE with Optimal Lambda:", validation_rmse))
+
+```
+# Step 5:Evaluate final
+
+```{r}
+final_data <- rbind(train_data, validation_data)
+
+final_model <- train(
+  dep_delay ~ .,
+  data = final_data,
+  method = "ridge",
+  tuneGrid = expand.grid(lambda = best_lambda),
+  trControl = trainControl(method = "none"),  
+  metric = "RMSE"
+)
+
+test_predictions <- predict(final_model, newdata = test_data)
+test_rmse <- sqrt(mean((test_predictions - test_data$dep_delay)^2))
+print(paste("Test RMSE with Optimal Lambda:", test_rmse))
+```
+

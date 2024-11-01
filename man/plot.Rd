@@ -2,7 +2,7 @@
 % Please edit documentation in R/plot.R
 \name{plot}
 \alias{plot}
-\title{Title}
+\title{Plots to evaluate the model}
 \usage{
 plot(object, ...)
 }
@@ -15,5 +15,5 @@ plot(object, ...)
 The result of the method applied to the class of the input object.
 }
 \description{
-Title
+Plots to evaluate the model
 }

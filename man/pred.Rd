@@ -2,7 +2,7 @@
 % Please edit documentation in R/pred.R
 \name{pred}
 \alias{pred}
-\title{Title}
+\title{Fitted value}
 \usage{
 pred(object, ...)
 }
@@ -15,5 +15,5 @@ pred(object, ...)
 The result of the method applied to the class of the input object.
 }
 \description{
-Title
+Fitted value
 }
